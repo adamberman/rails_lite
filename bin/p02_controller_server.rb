@@ -7,6 +7,7 @@ require_relative '../lib/phase2/controller_base'
 # http://www.ruby-doc.org/stdlib-2.0/libdoc/webrick/rdoc/WEBrick/Cookie.html
 
 class MyController < Phase2::ControllerBase
+
   def go
     if @req.path == "/cats"
       render_content("hello cats!", "text/html")

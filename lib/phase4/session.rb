@@ -15,7 +15,11 @@ module Phase4
     end
 
     def [](key)
-      @cookie[key]
+      if @cookie[key].nil?
+        @cookie[key.to_sym]
+      else
+        @cookie[key]
+      end
     end
 
     def []=(key, val)

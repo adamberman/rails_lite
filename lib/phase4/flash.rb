@@ -16,9 +16,11 @@ module Phase4
 
     def [](key)
       if @message[key].nil?
-        @message[key.to_sym]
+        return @message[key.to_sym]
+        @message = nil
       else
-        @message[key]
+        return @message[key]
+        @message = nil
       end
     end
 

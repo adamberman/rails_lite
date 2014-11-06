@@ -1,0 +1,30 @@
+require 'json'
+require 'webrick'
+
+module Phase4
+  class AuthenticityToken
+    # find the cookie for this app
+    # deserialize the cookie into a hash
+    def initialize(req)
+      token = req.cookies.select { |cookie| cookie.name == '_rails_lite_app' }.first
+      if token
+        @token = JSON.parse(token.value) 
+      else
+        @token = SecureRandom.base_64(16)
+      end
+    end
+
+    def authenticity_token
+      @token
+    end
+
+    def authenticity_token=(val)
+      @token = val
+    end
+    # serialize the hash into json and save in a cookie
+    # add to the responses cookies
+    def store_authenticity_token(res)
+      res.cookies << WEBrick::Cookie.new('_rails_lite_app', @token.to_json)
+    end
+  end
+end

@@ -7,5 +7,12 @@ module Phase6
     	#call a method that we know the name of...
     	self.send(name)
     end
+
+    def initialize(req, res, params = {})
+    	if self.class.verify_token? && req.method == :post
+    		self.class.protect_from_forgery
+    	end
+    	super
+    end
   end
 end

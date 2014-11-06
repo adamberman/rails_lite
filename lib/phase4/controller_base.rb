@@ -20,5 +20,15 @@ module Phase4
     def flash
         @flash ||= Flash.new(req)
     end
+
+    def authenticity_token
+        @authenticity_token ||= AuthenticityToken.new(req)
+    end
+
+    def self.protect_from_forgery
+        if authenticity_token != params["authenticity_token"]
+            raise Exception.new("Bad Authenticity Token! You are attacking the site!")
+        end
+    end
   end
 end
